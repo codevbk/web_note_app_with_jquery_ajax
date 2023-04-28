@@ -15,6 +15,7 @@ if($requestCheck !== false){
     switch ($requestMethodArr[$requestCheck]) {
         case 'GET':
             $request = $_GET;
+			$response = readNote();
             break;
         case 'POST':
             $request = file_get_contents("php://input");
@@ -41,5 +42,20 @@ function createNote($data) {
     $fileHandler->write($data);
     $fileHandler->close();
     chmod($fileLocation, 0777);
+}
+
+function readNote() {
+    $filesNotes = glob(DOCUMENT_ROOT."/data/*");
+    $noteArr = array();
+    if(isset($filesNotes) && !empty($filesNotes) && count($filesNotes) > 0){
+        foreach($filesNotes as $fileNote){
+            $fileHandler = new FileHandler();
+            $fileLocation = $fileNote;
+            $fileHandler->open($fileLocation);
+            $noteArr[] = $fileHandler->read($fileLocation);
+            $fileHandler->close();
+        }
+    }
+    return json_encode($noteArr);
 }
 ?>
