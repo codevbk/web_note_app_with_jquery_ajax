@@ -130,8 +130,21 @@ class NoteModel {
 			title: noteTitle,
 			content: noteContent
 		};
-        this.NoteList.push(noteObject);
-        this.NoteID++;
+        $.ajax({
+			context: this,
+			type: "POST",
+			url: "?action=create",
+			async: false,
+			data: JSON.stringify(noteObject),
+			success: function(response){
+				this.NoteList.push(noteObject);
+        		this.NoteID++;
+
+			},
+			error: function(error){
+				console.error("Error : ", error);
+			}
+		});
 	}
 
 	editNoteItem(noteID, noteTitle, noteContent) {
