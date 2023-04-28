@@ -27,6 +27,7 @@ if($requestCheck !== false){
             break;
         case 'DELETE':
             $request = file_get_contents("php://input");
+			deleteNote($request);
             break;
         default:
             break;
@@ -67,5 +68,15 @@ function updateNote($data) {
     $fileHandler->open($fileLocation);
     $fileHandler->write($data);
     $fileHandler->close();
+}
+
+function deleteNote($data) {
+    $fileHandler = new FileHandler();
+    $jsonData = json_decode($data,true);
+    $fileLocation = DOCUMENT_ROOT."/data/".$jsonData["id"].".json";
+    if(file_exists($fileLocation)){
+        $fileHandler->open($fileLocation);
+        $fileHandler->delete();
+    }
 }
 ?>
