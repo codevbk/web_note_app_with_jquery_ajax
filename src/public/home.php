@@ -166,6 +166,18 @@ class NoteModel {
 	}
 
 	getNoteList() {
+		$.ajax({
+		context: this,
+        type: "GET",
+		async: false,
+        url: "?action=read",
+        success: function(response){
+          this.todoList = response;
+        },
+        error: function(error){
+          console.error("Error : ", error);
+        },
+      });
 		return this.NoteList;
 	}
 }
