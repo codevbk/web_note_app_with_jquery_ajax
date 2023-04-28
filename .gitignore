@@ -1,0 +1,18 @@
+# ignores all asset files without folders
+#/src/assets/**/*.js
+#/src/assets/**/*.css
+/src/assets/js/
+/src/assets/css/
+/src/assets/js/*.js
+/src/assets/css/*.css
+
+# ignores data folder
+/src/data
+
+# ignores vscode folder
+.vscode
+
+# ignores vendor folder
+composer.phar
+composer.lock
+/vendor/

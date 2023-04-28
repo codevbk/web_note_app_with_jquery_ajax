@@ -1,0 +1,11 @@
+{
+    "name": "codevbk/web_note_app_with_jquery_ajax",
+	"autoload": {
+        "classmap": ["src/lib/"]
+    },
+    "scripts": {
+        "start-webserver": [
+                "php -S localhost:8000"
+            ]
+    }
+}
