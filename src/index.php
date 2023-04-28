@@ -8,5 +8,8 @@ if($_SERVER['HTTP_HOST'] == COMPOSER_WEBSERVER){
 }
 $ajax = false;
 include DOCUMENT_ROOT."/data.php";
+if($ajax == false){
+    clearNotes();
+}
 include DOCUMENT_PUBLIC."/home.php";
 ?>
