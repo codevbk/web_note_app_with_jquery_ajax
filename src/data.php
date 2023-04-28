@@ -10,7 +10,6 @@ if(isset($_GET["action"]) && !empty($_GET["action"])){
     $ajax = true;
 }
 
-
 $response = null;
 if($requestCheck !== false){
     switch ($requestMethodArr[$requestCheck]) {
@@ -19,6 +18,7 @@ if($requestCheck !== false){
             break;
         case 'POST':
             $request = file_get_contents("php://input");
+			createNote($request);
             break;
         case 'PUT':
             $request = file_get_contents('php://input');
@@ -33,4 +33,13 @@ if($requestCheck !== false){
 
 echo $response;
 
+function createNote($data) {
+    $fileHandler = new FileHandler();
+    $jsonData = json_decode($data,true);
+    $fileLocation = DOCUMENT_ROOT."/data/".$jsonData["id"].".json";
+    $fileHandler->open($fileLocation);
+    $fileHandler->write($data);
+    $fileHandler->close();
+    chmod($fileLocation, 0777);
+}
 ?>
