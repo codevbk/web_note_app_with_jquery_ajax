@@ -139,10 +139,9 @@ class NoteModel {
 			success: function(response){
 				this.NoteList.push(noteObject);
         		this.NoteID++;
-
 			},
 			error: function(error){
-				console.error("Error : ", error);
+				console.log("Error : ", error);
 			}
 		});
 	}
@@ -151,9 +150,27 @@ class NoteModel {
 		for (var i = 0; i < this.NoteList.length; i++) {
 			if (this.NoteList[i]["id"] == noteID) {
 				this.NoteList[i]["title"] = noteTitle;
-    			this.NoteList[i]["content"] = noteContent;
+				this.NoteList[i]["content"] = noteContent;
 			}
 		}
+		var noteObject = {
+			id: noteID,
+			title: noteTitle,
+			content: noteContent
+		};
+		$.ajax({
+			context: this,
+			type: "PUT",
+			url: "?action=update",
+			async: false,
+			data: JSON.stringify(noteObject),
+			success: function(response){
+				
+			},
+			error: function(error){
+				console.log("Error : ", error);
+			}
+		});
   	}
 
 	deleteNoteItem(noteID) {
@@ -167,17 +184,28 @@ class NoteModel {
 
 	getNoteList() {
 		$.ajax({
-		context: this,
-        type: "GET",
-		async: false,
-        url: "?action=read",
-        success: function(response){
-          this.todoList = response;
-        },
-        error: function(error){
-          console.error("Error : ", error);
-        },
-      });
+			context: this,
+			type: "GET",
+			async: false,
+			url: "?action=read",
+			success: function(response){
+				var responseJSON = jQuery.parseJSON(response);
+				var noteList = [];
+				$.each(responseJSON, function (key, val) {
+					var objectJSON = jQuery.parseJSON(val);
+					var noteObject = {
+						id: objectJSON.id,
+						title: objectJSON.title,
+						content: objectJSON.content
+					};
+					noteList.push(noteObject);
+				});
+				this.NoteList = noteList;
+			},
+			error: function(error){
+			  console.log("Error : ", error);
+			}
+		});
 		return this.NoteList;
 	}
 }
