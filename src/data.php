@@ -64,6 +64,7 @@ function readNote() {
 function updateNote($data) {
     $fileHandler = new FileHandler();
     $jsonData = json_decode($data,true);
+	//deleteNote($data); maybe fix problem of write permission
     $fileLocation = DOCUMENT_ROOT."/data/".$jsonData["id"].".json";
     $fileHandler->open($fileLocation);
     $fileHandler->write($data);
@@ -77,6 +78,21 @@ function deleteNote($data) {
     if(file_exists($fileLocation)){
         $fileHandler->open($fileLocation);
         $fileHandler->delete();
+    }
+}
+
+function clearNotes(){
+    $fileHandler = new FileHandler();
+    $filesNotes = glob(DOCUMENT_ROOT."/data/*");
+    $noteArr = array();
+    if(isset($filesNotes) && !empty($filesNotes) && count($filesNotes) > 0){
+        foreach($filesNotes as $fileNote){
+            $fileLocation = $fileNote;
+            if(file_exists($fileLocation)){
+                $fileHandler->open($fileLocation);
+                $fileHandler->delete();
+            }
+        }
     }
 }
 ?>
