@@ -23,6 +23,7 @@ if($requestCheck !== false){
             break;
         case 'PUT':
             $request = file_get_contents('php://input');
+			updateNote($request);
             break;
         case 'DELETE':
             $request = file_get_contents("php://input");
@@ -57,5 +58,14 @@ function readNote() {
         }
     }
     return json_encode($noteArr);
+}
+
+function updateNote($data) {
+    $fileHandler = new FileHandler();
+    $jsonData = json_decode($data,true);
+    $fileLocation = DOCUMENT_ROOT."/data/".$jsonData["id"].".json";
+    $fileHandler->open($fileLocation);
+    $fileHandler->write($data);
+    $fileHandler->close();
 }
 ?>
