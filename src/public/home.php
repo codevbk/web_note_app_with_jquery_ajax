@@ -348,10 +348,11 @@ class NoteController {
 
 	editNoteItem(noteID) {
 		this.noteView.setNoteIDValue(noteID);
-		for (var i = 0; i < this.noteModel.getNoteList().length; i++) {
-			if (this.noteModel.getNoteList()[i]["id"] == noteID) {
-				this.noteView.setNoteTitleValue(this.noteModel.getNoteList()[i]["title"]);
-				this.noteView.setNoteContentValue(this.noteModel.getNoteList()[i]["content"]);
+		var noteList = this.noteModel.getNoteList();
+		for (var i = 0; i < noteList.length; i++) {
+			if (noteList[i]["id"] == noteID) {
+				this.noteView.setNoteTitleValue(noteList[i]["title"]);
+				this.noteView.setNoteContentValue(noteList[i]["content"]);
 			}
 		}
 
