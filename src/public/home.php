@@ -174,6 +174,19 @@ class NoteModel {
   	}
 
 	deleteNoteItem(noteID) {
+		$.ajax({
+			context: this,
+			type: "DELETE",
+			url: "?action=delete",
+			async: false,
+			data: JSON.stringify({"id":noteID}),
+			success: function(response){
+				
+			},
+			error: function(error){
+			  console.log("Error : ", error);
+			}
+		});
 		for (var i = 0; i < this.NoteList.length; i++) {
 			if (this.NoteList[i]["id"] == noteID) {
 				this.NoteList.splice(i, 1);
