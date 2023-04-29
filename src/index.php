@@ -6,10 +6,12 @@ $urlHost = "/".PROJECT_NAME;
 if($_SERVER['HTTP_HOST'] == COMPOSER_WEBSERVER){
     $urlHost = "";
 }
-$ajax = false;
-include DOCUMENT_ROOT."/data.php";
-if($ajax == false){
-    clearNotes();
+
+$noteModel = new NoteModel();
+$noteView = new NoteView($noteModel);
+$noteController = new NoteController($noteModel, $noteView);
+if($noteController->ajax == false){
+    $noteModel->clear();
 }
 include DOCUMENT_PUBLIC."/home.php";
 ?>
