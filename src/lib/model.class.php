@@ -1,5 +1,14 @@
 <?php
-class NoteModel {
+// Interface for NoteModel 
+interface NoteModelInterface {
+    public function create($data);
+    public function read();
+    public function update($data);
+    public function delete($data);
+    public function clear();
+}
+
+class NoteModel implements NoteModelInterface {
 	
 	private $fileHandler;
 	
