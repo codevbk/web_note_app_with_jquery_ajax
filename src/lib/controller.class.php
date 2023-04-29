@@ -1,10 +1,15 @@
 <?php
-class NoteController {
+// Interface for NoteController 
+interface NoteControllerInterface {
+    public function handleRequest();
+}
+
+class NoteController implements NoteControllerInterface {
     private $model;
     private $view;
     public $ajax = false;
 
-    public function __construct($model, $view) {
+    public function __construct(NoteModelInterface $model, NoteViewInterface $view) {
         $this->model = $model;
         $this->view = $view;
         $this->handleRequest();
