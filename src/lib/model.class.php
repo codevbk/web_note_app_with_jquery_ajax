@@ -20,13 +20,14 @@ class NoteModel {
 		$noteArr = array();
 		if(isset($filesNotes) && !empty($filesNotes) && count($filesNotes) > 0){
 			foreach($filesNotes as $fileNote){
+				$this->fileHandler = new FileHandler();
 				$fileLocation = $fileNote;
 				$this->fileHandler->open($fileLocation);
 				$noteArr[] = $this->fileHandler->read($fileLocation);
 				$this->fileHandler->close();
 			}
 		}
-		return json_encode($noteArr);
+		return json_encode($noteArr, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
     }
 
     public function update($data) {
