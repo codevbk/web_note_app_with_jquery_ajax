@@ -201,10 +201,11 @@ class NoteModel {
 			type: "GET",
 			async: false,
 			url: "?action=read",
+			dataType: 'json',
 			success: function(response){
-				var responseJSON = jQuery.parseJSON(response);
+				//var responseJSON = jQuery.parseJSON(response);
 				var noteList = [];
-				$.each(responseJSON, function (key, val) {
+				$.each(response, function (key, val) {
 					var objectJSON = jQuery.parseJSON(val);
 					var noteObject = {
 						id: objectJSON.id,
