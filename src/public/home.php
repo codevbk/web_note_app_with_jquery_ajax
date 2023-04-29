@@ -1,5 +1,5 @@
 <?php
-if($ajax == false){
+if($noteController->ajax == false){
 ?>
 <html>
 <head>
