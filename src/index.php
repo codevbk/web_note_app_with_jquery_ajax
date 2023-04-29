@@ -7,9 +7,9 @@ if($_SERVER['HTTP_HOST'] == COMPOSER_WEBSERVER){
     $urlHost = "";
 }
 
-$noteModel = new NoteModel();
-$noteView = new NoteView($noteModel);
-$noteController = new NoteController($noteModel, $noteView);
+$noteFactory = new NoteFactory();
+$noteModel = $noteFactory->getNoteModel();
+$noteController = $noteFactory->getNoteController();
 if($noteController->ajax == false){
     $noteModel->clear();
 }
