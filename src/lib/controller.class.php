@@ -25,7 +25,7 @@ class NoteController {
         if($requestCheck !== false){
             switch ($requestMethodArr[$requestCheck]) {
                 case 'GET':
-					header('Content-Type: application/json; charset=utf-8');
+					header("Content-Type: application/json;");
                     $request = $_GET;
                     $response = $this->model->read();
                     break;
